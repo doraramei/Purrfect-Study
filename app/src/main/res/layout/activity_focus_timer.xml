@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <!-- Top Bar -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginBottom="24dp">
+
+        <TextView
+            android:id="@+id/btnBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="&lt;"
+            android:textSize="26sp"
+            android:textStyle="bold"
+            android:textColor="#000000"
+            android:paddingEnd="16dp"
+            android:clickable="true"
+            android:focusable="true" />
+
+        <TextView
+            android:id="@+id/tvSubjectTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Focus timer"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="#000000" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="⋯"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textColor="#000000" />
+    </LinearLayout>
+
+    <!-- Timer Utama & Tombol Pause/Play Halus -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginBottom="20dp">
+
+        <TextView
+            android:id="@+id/tvRoomTimer"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="0:00:00"
+            android:textSize="46sp"
+            android:textStyle="bold"
+            android:textColor="#000000"
+            android:includeFontPadding="false" />
+
+        <!-- Tombol Pause / Play -->
+        <Button
+            android:id="@+id/btnPauseTimer"
+            android:layout_width="52dp"
+            android:layout_height="52dp"
+            android:text="⏸"
+            android:textSize="18sp"
+            android:textColor="#FFFFFF"
+            android:backgroundTint="#000000"
+            style="?attr/materialButtonOutlinedStyle" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#E5E5E5"
+        android:layout_marginBottom="20dp" />
+
+    <!-- Info Group -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="SIRKEL SIRKEL AN"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:textColor="#000000"
+        android:letterSpacing="0.05"
+        android:layout_marginBottom="2dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1 members Studying"
+        android:textSize="12sp"
+        android:textColor="#666666"
+        android:layout_marginBottom="16dp" />
+
+    <!-- Grid Member (Scrollable) -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:scrollbars="none">
+
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:columnCount="4"
+            android:alignmentMode="alignMargins"
+            android:columnOrderPreserved="false">
+
+            <!-- Member 1: Syila (Aktif dengan Border Kotak) -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:paddingVertical="12dp"
+                android:background="@drawable/bg_active_card"
+                android:layout_margin="4dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="🪑"
+                    android:textSize="26sp"
+                    android:layout_marginBottom="4dp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="syilawaaw"
+                    android:textSize="11sp"
+                    android:textStyle="bold"
+                    android:textColor="#000000" />
+                <TextView
+                    android:id="@+id/tvMyMemberTimer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0:00:00"
+                    android:textSize="10sp"
+                    android:textColor="#666666" />
+            </LinearLayout>
+
+            <!-- Member 2: Mayy -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:paddingVertical="12dp"
+                android:layout_margin="4dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="🪑"
+                    android:textSize="26sp"
+                    android:layout_marginBottom="4dp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Mayy"
+                    android:textSize="11sp"
+                    android:textColor="#666666" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0:00:00"
+                    android:textSize="10sp"
+                    android:textColor="#888888" />
+            </LinearLayout>
+
+            <!-- Member 3: napss -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:paddingVertical="12dp"
+                android:layout_margin="4dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="🪑"
+                    android:textSize="26sp"
+                    android:layout_marginBottom="4dp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="napss"
+                    android:textSize="11sp"
+                    android:textColor="#666666" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0:00:00"
+                    android:textSize="10sp"
+                    android:textColor="#888888" />
+            </LinearLayout>
+
+            <!-- Member 4: dinda -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:paddingVertical="12dp"
+                android:layout_margin="4dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="🪑"
+                    android:textSize="26sp"
+                    android:layout_marginBottom="4dp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="dinda"
+                    android:textSize="11sp"
+                    android:textColor="#666666" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0:00:00"
+                    android:textSize="10sp"
+                    android:textColor="#888888" />
+            </LinearLayout>
+
+        </GridLayout>
+    </ScrollView>
+
+    <!-- Tombol Allowed Apps -->
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:text="Allowed Apps"
+        android:textColor="#000000"
+        android:backgroundTint="#F5F5F5"
+        android:layout_marginTop="12dp"
+        style="?attr/materialButtonOutlinedStyle" />
+
+</LinearLayout>

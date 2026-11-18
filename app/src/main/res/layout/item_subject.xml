@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?attr/selectableItemBackground"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingVertical="12dp">
+
+    <!-- Lingkaran Indikator di Kiri -->
+    <View
+        android:id="@+id/viewCircleIndicator"
+        android:layout_width="26dp"
+        android:layout_height="26dp"
+        android:background="@drawable/circle_subject" />
+
+    <!-- Nama Mata Pelajaran -->
+    <TextView
+        android:id="@+id/tvSubjectName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="14dp"
+        android:layout_weight="1"
+        android:text="Literasi BIng"
+        android:textColor="@color/charcoal_text"
+        android:textSize="15sp"
+        android:textStyle="bold" />
+
+    <!-- Waktu Belajar Per Mata Pelajaran -->
+    <TextView
+        android:id="@+id/tvSubjectTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0:00:00"
+        android:textColor="@color/muted_gray"
+        android:textSize="14sp" />
+
+</LinearLayout>

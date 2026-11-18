@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="cream_bg">#FAF8F5</color>
+    <color name="card_white">#FFFFFF</color>
+    <color name="charcoal_text">#2D2A26</color>
+    <color name="muted_gray">#7A756E</color>
+    <color name="terracotta_accent">#E07A5F</color>
+    <color name="soft_gray_circle">#E8E4DD</color>
+</resources>

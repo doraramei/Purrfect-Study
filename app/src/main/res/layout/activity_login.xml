@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="24dp">
+
+    <!-- Gambar Kucing Diperbesar & Ditarik Mepet ke Judul (Gap Merah Dihilangkan) -->
+    <ImageView
+        android:id="@+id/ivCatPeek"
+        android:layout_width="280dp"
+        android:layout_height="160dp"
+        android:src="@drawable/ic_cat_peek"
+        android:scaleType="fitCenter"
+        android:layout_marginBottom="-22dp" />
+
+    <!-- Judul Aplikasi (Langsung Nyatu di Bawah Kucing) -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Purrfect-Study"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        android:textColor="#000000" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Fokus bareng sirkel, raih mimpimu."
+        android:textSize="14sp"
+        android:textColor="#888888"
+        android:layout_marginBottom="32dp" />
+
+    <!-- Input Username -->
+    <EditText
+        android:id="@+id/etUsername"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:hint="Username / Email"
+        android:paddingHorizontal="16dp"
+        android:background="@drawable/bg_input_rounded"
+        android:inputType="textEmailAddress"
+        android:textSize="14sp"
+        android:layout_marginBottom="16dp" />
+
+    <!-- Input Password -->
+    <EditText
+        android:id="@+id/etPassword"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:hint="Password"
+        android:paddingHorizontal="16dp"
+        android:background="@drawable/bg_input_rounded"
+        android:inputType="textPassword"
+        android:textSize="14sp"
+        android:layout_marginBottom="24dp" />
+
+    <!-- Tombol Login -->
+    <Button
+        android:id="@+id/btnLogin"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="Masuk Ruang Belajar"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        android:backgroundTint="#000000"
+        style="?attr/materialButtonOutlinedStyle" />
+
+</LinearLayout>
