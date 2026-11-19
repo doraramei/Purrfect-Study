@@ -12,23 +12,34 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PurrfectStudy_Anelka">
 
-        <!-- Pintu Utama / Launcher dikembalikan ke MainActivity (Login) -->
+        <!-- Splash Screen Pembuka -->
         <activity
-            android:name=".MainActivity"
-            android:exported="true"
-            android:windowSoftInputMode="adjustResize">
+            android:name=".SplashActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
+        <!-- Layar Login Monokrom Minimalis -->
+        <activity
+            android:name=".LoginActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+
+        <!-- Layar Login Legacy Redirect -->
+        <activity
+            android:name=".MainActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+
         <!-- Halaman Home -->
         <activity
             android:name=".HomeActivity"
             android:exported="false" />
 
-        <!-- Halaman Focus Timer -->
+        <!-- Halaman Focus Timer / Group Study -->
         <activity
             android:name=".FocusTimerActivity"
             android:exported="false" />
@@ -36,6 +47,37 @@
         <!-- Halaman Statistics -->
         <activity
             android:name=".StatisticsActivity"
+            android:exported="false" />
+
+        <!-- Halaman To-Do / Planner -->
+        <activity
+            android:name=".TodoActivity"
+            android:exported="false" />
+
+        <!-- Halaman Calendar -->
+        <activity
+            android:name=".CalendarActivity"
+            android:exported="false" />
+
+        <!-- Halaman Daftar Grup My groups -->
+        <activity
+            android:name=".GroupsListActivity"
+            android:exported="false" />
+
+        <!-- Halaman Detail Grup (Chat & Group Info) -->
+        <activity
+            android:name=".GroupDetailActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+
+        <!-- Halaman Settings & Profil -->
+        <activity
+            android:name=".SettingsActivity"
+            android:exported="false" />
+
+        <!-- Halaman Studicon Store & Monetisasi -->
+        <activity
+            android:name=".StudiconStoreActivity"
             android:exported="false" />
 
     </application>

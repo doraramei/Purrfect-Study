@@ -1,274 +1,308 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF"
+    android:fitsSystemWindows="true"
     android:orientation="vertical">
 
-    <!-- Header Tanggal & Timer Utama -->
+    <!-- 1. Area Header Timer Atas -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center"
-        android:paddingTop="32dp"
-        android:paddingBottom="24dp">
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/tvDateHeader"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Thu, 11/12"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:textColor="#000000"
-            android:layout_marginBottom="16dp" />
+            android:layout_marginTop="40dp"
+            android:fontFamily="sans-serif-medium"
+            android:text="Thu, 11/19"
+            android:textColor="#2C2C2C"
+            android:textSize="16sp"
+            tools:ignore="HardcodedText" />
 
         <TextView
             android:id="@+id/tvMainTimer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-medium"
+            android:fontFeatureSettings="tnum"
+            android:includeFontPadding="false"
+            android:letterSpacing="0.02"
+            android:paddingTop="28dp"
+            android:paddingBottom="48dp"
             android:text="0:00:00"
-            android:textSize="48sp"
-            android:textStyle="bold"
-            android:textColor="#000000" />
+            android:textColor="#1F1F1F"
+            android:textSize="56sp"
+            tools:ignore="HardcodedText" />
     </LinearLayout>
 
-    <!-- Tab Menu -->
+    <!-- 2. Bar Tab Navigasi Horizontal (2 Tab: Timer | Statistics) -->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:paddingBottom="12dp">
+        android:layout_height="44dp"
+        android:baselineAligned="false"
+        android:orientation="horizontal">
 
-        <TextView
+        <FrameLayout
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Timer"
-            android:textStyle="bold"
-            android:gravity="center"
-            android:textColor="#000000" />
+            android:layout_height="match_parent"
+            android:layout_weight="1">
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Books"
-            android:gravity="center"
-            android:textColor="#888888" />
+            <TextView
+                android:id="@+id/tvTabTimer"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clickable="true"
+                android:focusable="true"
+                android:fontFamily="sans-serif-medium"
+                android:gravity="center"
+                android:text="Timer"
+                android:textColor="#1F1F1F"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                tools:ignore="HardcodedText" />
 
-        <TextView
-            android:id="@+id/tvTabStatistics"
+            <View
+                android:layout_width="44dp"
+                android:layout_height="2.5dp"
+                android:layout_gravity="bottom|center_horizontal"
+                android:background="#1F1F1F" />
+        </FrameLayout>
+
+        <FrameLayout
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Statistics"
-            android:gravity="center"
-            android:textColor="#888888"
-            android:clickable="true"
-            android:focusable="true" />
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/tvTabStatistics"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clickable="true"
+                android:focusable="true"
+                android:fontFamily="sans-serif"
+                android:gravity="center"
+                android:text="Statistics"
+                android:textColor="#8E8E93"
+                android:textSize="14sp"
+                tools:ignore="HardcodedText" />
+        </FrameLayout>
     </LinearLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#E0E0E0" />
+        android:background="#EFEFEF" />
 
-    <!-- Daftar Subject / Mapel -->
-    <ScrollView
+    <!-- 3. Daftar Mapel & Tombol "+ Edit subject" -->
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scrollSubjects"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:paddingHorizontal="16dp"
-        android:paddingTop="12dp">
+        android:descendantFocusability="blocksDescendants"
+        android:fillViewport="true"
+        android:scrollbars="none">
 
         <LinearLayout
-            android:id="@+id/containerSubjects"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingTop="4dp"
+            android:paddingBottom="24dp">
 
-            <!-- 1. Matematika -->
             <LinearLayout
-                android:id="@+id/layoutMatematika"
+                android:id="@+id/containerSubjects"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-                <View
-                    android:layout_width="16dp"
-                    android:layout_height="16dp"
-                    android:background="@drawable/ic_play_circle"
-                    android:layout_marginEnd="12dp"/>
-                <TextView
-                    android:id="@+id/tvMatematikaName"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Matematika"
-                    android:textSize="16sp"
-                    android:textColor="#000000" />
-                <TextView
-                    android:id="@+id/tvMatematikaTime"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="0:00:00"
-                    android:textColor="#666666"
-                    android:paddingEnd="12dp"/>
-                <TextView
-                    android:id="@+id/btnMoreMatematika"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="⋮"
-                    android:textSize="20sp"
-                    android:textColor="#666666"
-                    android:paddingHorizontal="8dp"
-                    android:clickable="true"
-                    android:focusable="true"/>
-            </LinearLayout>
+                android:layout_height="wrap_content"
+                android:orientation="vertical" />
 
-            <!-- 2. Bahasa Indonesia -->
-            <LinearLayout
-                android:id="@+id/layoutBindo"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-                <View
-                    android:layout_width="16dp"
-                    android:layout_height="16dp"
-                    android:background="@drawable/ic_play_circle"
-                    android:layout_marginEnd="12dp"/>
-                <TextView
-                    android:id="@+id/tvBindoName"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Bahasa Indonesia"
-                    android:textSize="16sp"
-                    android:textColor="#000000" />
-                <TextView
-                    android:id="@+id/tvBindoTime"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="0:00:00"
-                    android:textColor="#666666"
-                    android:paddingEnd="12dp"/>
-                <TextView
-                    android:id="@+id/btnMoreBindo"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="⋮"
-                    android:textSize="20sp"
-                    android:textColor="#666666"
-                    android:paddingHorizontal="8dp"
-                    android:clickable="true"
-                    android:focusable="true"/>
-            </LinearLayout>
-
-            <!-- 3. Bahasa Inggris -->
-            <LinearLayout
-                android:id="@+id/layoutBing"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-                <View
-                    android:layout_width="16dp"
-                    android:layout_height="16dp"
-                    android:background="@drawable/ic_play_circle"
-                    android:layout_marginEnd="12dp"/>
-                <TextView
-                    android:id="@+id/tvBingName"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Bahasa Inggris"
-                    android:textSize="16sp"
-                    android:textColor="#000000" />
-                <TextView
-                    android:id="@+id/tvBingTime"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="0:00:00"
-                    android:textColor="#666666"
-                    android:paddingEnd="12dp"/>
-                <TextView
-                    android:id="@+id/btnMoreBing"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="⋮"
-                    android:textSize="20sp"
-                    android:textColor="#666666"
-                    android:paddingHorizontal="8dp"
-                    android:clickable="true"
-                    android:focusable="true"/>
-            </LinearLayout>
-
-            <!-- Tombol Tambah Subject -->
-            <Button
+            <TextView
                 android:id="@+id/btnEditSubject"
                 android:layout_width="match_parent"
-                android:layout_height="45dp"
+                android:layout_height="44dp"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/bg_btn_edit_subject"
+                android:clickable="true"
+                android:focusable="true"
+                android:fontFamily="sans-serif-medium"
+                android:gravity="center"
                 android:text="+ Edit subject"
-                android:textColor="#000000"
-                android:backgroundTint="#F2F2F2"
-                android:layout_marginTop="12dp"
-                android:layout_marginBottom="16dp"
-                style="?attr/materialButtonOutlinedStyle" />
-
+                android:textColor="#1F1F1F"
+                android:textSize="14sp"
+                tools:ignore="HardcodedText" />
         </LinearLayout>
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
 
-    <!-- Bottom Navigation Bar -->
+    <!-- 4. Bottom Navigation Bar Minimalis (Rata Bawah) -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#EFEFEF" />
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
+        android:layout_height="64dp"
         android:background="#FFFFFF"
-        android:paddingHorizontal="16dp"
-        android:elevation="8dp">
+        android:baselineAligned="false"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="8dp"
+        android:paddingEnd="16dp">
 
-        <TextView
+        <FrameLayout
+            android:id="@+id/navHome"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="Home"
-            android:gravity="center"
-            android:textSize="12sp"
-            android:textStyle="bold"
-            android:textColor="#000000" />
+            android:clickable="true"
+            android:focusable="true">
 
-        <TextView
+            <View
+                android:layout_width="24dp"
+                android:layout_height="2dp"
+                android:layout_gravity="top|center_horizontal"
+                android:background="#1F1F1F" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:contentDescription="Home"
+                    android:src="@drawable/ic_nav_home"
+                    tools:ignore="HardcodedText" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="Home"
+                    android:textColor="#1F1F1F"
+                    android:textSize="11sp"
+                    tools:ignore="HardcodedText" />
+            </LinearLayout>
+        </FrameLayout>
+
+        <LinearLayout
+            android:id="@+id/navTodo"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="To-Do"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:focusable="true"
             android:gravity="center"
-            android:textSize="12sp"
-            android:textColor="#888888" />
+            android:orientation="vertical">
 
-        <TextView
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:contentDescription="To-Do"
+                android:src="@drawable/ic_nav_todo"
+                tools:ignore="HardcodedText" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:fontFamily="sans-serif"
+                android:text="To-Do"
+                android:textColor="#757575"
+                android:textSize="11sp"
+                tools:ignore="HardcodedText" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/navCalendar"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="Calendar"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:focusable="true"
             android:gravity="center"
-            android:textSize="12sp"
-            android:textColor="#888888" />
+            android:orientation="vertical">
 
-        <TextView
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:contentDescription="Calendar"
+                android:src="@drawable/ic_nav_calendar"
+                tools:ignore="HardcodedText" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:fontFamily="sans-serif"
+                android:text="Calendar"
+                android:textColor="#757575"
+                android:textSize="11sp"
+                tools:ignore="HardcodedText" />
+        </LinearLayout>
+
+        <LinearLayout
             android:id="@+id/navGroups"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="Groups"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:focusable="true"
             android:gravity="center"
-            android:textSize="12sp"
-            android:textColor="#888888" />
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:contentDescription="Groups"
+                android:src="@drawable/ic_nav_groups"
+                tools:ignore="HardcodedText" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:fontFamily="sans-serif"
+                android:text="Groups"
+                android:textColor="#757575"
+                android:textSize="11sp"
+                tools:ignore="HardcodedText" />
+        </LinearLayout>
+
+        <!-- Tombol Lingkaran Pengaturan Pojok Kanan Bawah (42dp) -->
+        <FrameLayout
+            android:id="@+id/btnQuickSettings"
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/bg_circle_button_gray"
+            android:clickable="true"
+            android:contentDescription="Pengaturan"
+            android:focusable="true"
+            tools:ignore="HardcodedText">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_gravity="center"
+                android:contentDescription="Pengaturan"
+                android:src="@drawable/ic_tune"
+                tools:ignore="HardcodedText" />
+        </FrameLayout>
     </LinearLayout>
 
 </LinearLayout>

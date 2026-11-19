@@ -4,393 +4,828 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF"
+    android:fitsSystemWindows="true"
     android:orientation="vertical">
 
-    <!-- Top Bar -->
-    <LinearLayout
+    <!-- Top Bar (Tanpa Tombol AI, Monokrom Bersih) -->
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:padding="16dp">
+        android:paddingHorizontal="12dp"
+        android:paddingVertical="10dp">
 
         <TextView
             android:id="@+id/btnBackStats"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="&lt;"
-            android:textSize="26sp"
-            android:textStyle="bold"
-            android:textColor="#000000"
-            android:paddingEnd="16dp"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:background="?attr/selectableItemBackgroundBorderless"
             android:clickable="true"
             android:focusable="true"
-            tools:ignore="HardcodedText" />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Statistics"
-            android:textSize="20sp"
+            android:gravity="center"
+            android:text="&lt;"
+            android:textColor="#1F1F1F"
+            android:textSize="24sp"
             android:textStyle="bold"
-            android:textColor="#000000"
             tools:ignore="HardcodedText" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Default Grayscale"
-            android:textSize="12sp"
-            android:textColor="#333333"
-            android:paddingHorizontal="12dp"
-            android:paddingVertical="6dp"
-            android:background="#F2F2F2"
+            android:layout_centerInParent="true"
+            android:fontFamily="sans-serif-medium"
+            android:text="Statistics"
+            android:textColor="#1F1F1F"
+            android:textSize="18sp"
+            android:textStyle="bold"
             tools:ignore="HardcodedText" />
-    </LinearLayout>
 
-    <!-- ScrollView dengan scrollbars="none" (Garis scroll dijamin hilang) -->
-    <ScrollView
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:background="#F2F2F2"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="5dp"
+            android:text="Default Grayscale"
+            android:textColor="#333333"
+            android:textSize="12sp"
+            tools:ignore="HardcodedText" />
+    </RelativeLayout>
+
+    <!-- Konten Utama dalam NestedScrollView (Tanpa Filter Chips) -->
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScrollStatistics"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:paddingHorizontal="16dp"
-        android:scrollbars="none"
-        android:fadeScrollbars="true">
+        android:clipToPadding="false"
+        android:descendantFocusability="blocksDescendants"
+        android:fillViewport="true"
+        android:scrollbars="none">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingBottom="40dp">
+            android:paddingHorizontal="16dp"
+            android:paddingTop="4dp"
+            android:paddingBottom="48dp">
 
-            <!-- 1. CARD: Kalender Bulanan & Monthly Log -->
+            <!-- KARTU 1: Kalender Bulanan Heatmap Monokrom Interaktif -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="14dp"
+                android:background="@drawable/bg_stats_card"
                 android:orientation="vertical"
-                android:background="#F9F9F9"
-                android:padding="16dp"
-                android:layout_marginBottom="16dp">
+                android:padding="16dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
+                    android:layout_marginBottom="12dp"
                     android:gravity="center_vertical"
-                    android:layout_marginBottom="14dp">
+                    android:orientation="horizontal">
 
                     <TextView
-                        android:layout_width="0dp"
+                        android:id="@+id/btnPrevMonth"
+                        android:layout_width="34dp"
+                        android:layout_height="34dp"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:gravity="center"
+                        android:text="◄"
+                        android:textColor="#1F1F1F"
+                        android:textSize="14sp"
+                        tools:ignore="HardcodedText" />
+
+                    <TextView
+                        android:id="@+id/tvCalendarMonthTitle"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="◄  Nov ▼  2026  ►"
+                        android:fontFamily="sans-serif-medium"
+                        android:paddingHorizontal="6dp"
+                        android:text="Nov 2026"
+                        android:textColor="#1F1F1F"
                         android:textSize="15sp"
                         android:textStyle="bold"
-                        android:textColor="#000000"
                         tools:ignore="HardcodedText" />
+
+                    <TextView
+                        android:id="@+id/btnNextMonth"
+                        android:layout_width="34dp"
+                        android:layout_height="34dp"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:gravity="center"
+                        android:text="►"
+                        android:textColor="#1F1F1F"
+                        android:textSize="14sp"
+                        tools:ignore="HardcodedText" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:layout_weight="1" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Monthly Log"
-                        android:textSize="13sp"
-                        android:textColor="#666666"
+                        android:textColor="#757575"
+                        android:textSize="12sp"
                         tools:ignore="HardcodedText" />
                 </LinearLayout>
 
-                <!-- Header Hari -->
+                <!-- Header Hari Mon - Sun -->
                 <GridLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:columnCount="7"
-                    android:layout_marginBottom="10dp">
-                    <TextView android:text="Mon" android:textSize="12sp" android:textColor="#888888" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_columnWeight="1" android:gravity="center" tools:ignore="HardcodedText"/>
-                    <TextView android:text="Tue" android:textSize="12sp" android:textColor="#888888" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_columnWeight="1" android:gravity="center" tools:ignore="HardcodedText"/>
-                    <TextView android:text="Wed" android:textSize="12sp" android:textColor="#888888" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_columnWeight="1" android:gravity="center" tools:ignore="HardcodedText"/>
-                    <TextView android:text="Thu" android:textSize="12sp" android:textColor="#888888" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_columnWeight="1" android:gravity="center" tools:ignore="HardcodedText"/>
-                    <TextView android:text="Fri" android:textSize="12sp" android:textColor="#888888" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_columnWeight="1" android:gravity="center" tools:ignore="HardcodedText"/>
-                    <TextView android:text="Sat" android:textSize="12sp" android:textColor="#888888" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_columnWeight="1" android:gravity="center" tools:ignore="HardcodedText"/>
-                    <TextView android:text="Sun" android:textSize="12sp" android:textColor="#888888" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_columnWeight="1" android:gravity="center" tools:ignore="HardcodedText"/>
+                    android:layout_marginBottom="6dp"
+                    android:columnCount="7">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_columnWeight="1"
+                        android:gravity="center"
+                        android:text="Mon"
+                        android:textColor="#757575"
+                        android:textSize="12sp"
+                        tools:ignore="HardcodedText" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_columnWeight="1"
+                        android:gravity="center"
+                        android:text="Tue"
+                        android:textColor="#757575"
+                        android:textSize="12sp"
+                        tools:ignore="HardcodedText" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_columnWeight="1"
+                        android:gravity="center"
+                        android:text="Wed"
+                        android:textColor="#757575"
+                        android:textSize="12sp"
+                        tools:ignore="HardcodedText" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_columnWeight="1"
+                        android:gravity="center"
+                        android:text="Thu"
+                        android:textColor="#757575"
+                        android:textSize="12sp"
+                        tools:ignore="HardcodedText" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_columnWeight="1"
+                        android:gravity="center"
+                        android:text="Fri"
+                        android:textColor="#757575"
+                        android:textSize="12sp"
+                        tools:ignore="HardcodedText" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_columnWeight="1"
+                        android:gravity="center"
+                        android:text="Sat"
+                        android:textColor="#757575"
+                        android:textSize="12sp"
+                        tools:ignore="HardcodedText" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_columnWeight="1"
+                        android:gravity="center"
+                        android:text="Sun"
+                        android:textColor="#757575"
+                        android:textSize="12sp"
+                        tools:ignore="HardcodedText" />
                 </GridLayout>
 
-                <!-- Grid Kalender -->
+                <!-- Grid Tanggal Heatmap Monokrom (Diisi Dinamis di Kotlin) -->
                 <GridLayout
+                    android:id="@+id/gridCalendar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:columnCount="7"
-                    android:layout_marginBottom="14dp">
-                    <TextView android:text="1\n-" android:textSize="11sp" android:gravity="center" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_columnWeight="1" android:paddingVertical="8dp" tools:ignore="HardcodedText"/>
-                    <TextView android:text="2\n4:43" android:textSize="11sp" android:gravity="center" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_columnWeight="1" android:paddingVertical="8dp" tools:ignore="HardcodedText"/>
-                    <TextView android:text="3\n5:13" android:textSize="11sp" android:gravity="center" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_columnWeight="1" android:paddingVertical="8dp" tools:ignore="HardcodedText"/>
-                    <TextView android:text="4\n-" android:textSize="11sp" android:gravity="center" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_columnWeight="1" android:paddingVertical="8dp" tools:ignore="HardcodedText"/>
-                    <TextView android:text="5\n2:05" android:textSize="11sp" android:gravity="center" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_columnWeight="1" android:paddingVertical="8dp" tools:ignore="HardcodedText"/>
-                    <TextView android:text="6\n-" android:textSize="11sp" android:gravity="center" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_columnWeight="1" android:paddingVertical="8dp" tools:ignore="HardcodedText"/>
-                    <TextView android:text="7\n-" android:textSize="11sp" android:gravity="center" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_columnWeight="1" android:paddingVertical="8dp" tools:ignore="HardcodedText"/>
+                    android:layout_marginBottom="12dp"
+                    android:columnCount="7" />
 
-                    <TextView android:text="8\n-" android:textSize="11sp" android:gravity="center" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_columnWeight="1" android:paddingVertical="8dp" tools:ignore="HardcodedText"/>
-                    <TextView android:text="9\n12:10" android:textSize="11sp" android:textColor="#FFFFFF" android:background="#000000" android:gravity="center" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_columnWeight="1" android:paddingVertical="8dp" tools:ignore="HardcodedText"/>
-                    <TextView android:text="10\n-" android:textSize="11sp" android:gravity="center" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_columnWeight="1" android:paddingVertical="8dp" tools:ignore="HardcodedText"/>
-                    <TextView android:text="11\n-" android:textSize="11sp" android:gravity="center" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_columnWeight="1" android:paddingVertical="8dp" tools:ignore="HardcodedText"/>
-                    <TextView android:text="12\n10:15" android:textSize="11sp" android:textColor="#FFFFFF" android:background="#333333" android:gravity="center" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_columnWeight="1" android:paddingVertical="8dp" tools:ignore="HardcodedText"/>
-                    <TextView android:text="13\n-" android:textSize="11sp" android:gravity="center" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_columnWeight="1" android:paddingVertical="8dp" tools:ignore="HardcodedText"/>
-                    <TextView android:text="14\n3:16" android:textSize="11sp" android:gravity="center" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_columnWeight="1" android:paddingVertical="8dp" tools:ignore="HardcodedText"/>
-
-                    <TextView android:text="15\n-" android:textSize="11sp" android:gravity="center" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_columnWeight="1" android:paddingVertical="8dp" tools:ignore="HardcodedText"/>
-                    <TextView android:text="16\n-" android:textSize="11sp" android:gravity="center" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_columnWeight="1" android:paddingVertical="8dp" tools:ignore="HardcodedText"/>
-                    <TextView android:text="17\n-" android:textSize="11sp" android:gravity="center" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_columnWeight="1" android:paddingVertical="8dp" tools:ignore="HardcodedText"/>
-                    <TextView android:id="@+id/tvCalToday" android:text="18\n0:00" android:textSize="11sp" android:textColor="#FFFFFF" android:background="#000000" android:gravity="center" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_columnWeight="1" android:paddingVertical="8dp" tools:ignore="HardcodedText"/>
-                    <TextView android:text="19\n4:03" android:textSize="11sp" android:gravity="center" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_columnWeight="1" android:paddingVertical="8dp" tools:ignore="HardcodedText"/>
-                    <TextView android:text="20\n-" android:textSize="11sp" android:gravity="center" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_columnWeight="1" android:paddingVertical="8dp" tools:ignore="HardcodedText"/>
-                    <TextView android:text="21\n-" android:textSize="11sp" android:gravity="center" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_columnWeight="1" android:paddingVertical="8dp" tools:ignore="HardcodedText"/>
-                </GridLayout>
-
-                <TextView
-                    android:id="@+id/tvMonthlyTotal"
+                <!-- Legenda Intensitas Monokrom + Total Bulanan -->
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Nov: 50H 44M"
-                    android:textSize="13sp"
-                    android:textStyle="bold"
-                    android:textColor="#000000"
-                    android:gravity="end"
-                    tools:ignore="HardcodedText" />
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <View
+                        android:layout_width="10dp"
+                        android:layout_height="10dp"
+                        android:layout_marginEnd="3dp"
+                        android:background="#E0E0E0" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="6dp"
+                        android:text="0+"
+                        android:textColor="#757575"
+                        android:textSize="12sp"
+                        tools:ignore="HardcodedText" />
+
+                    <View
+                        android:layout_width="10dp"
+                        android:layout_height="10dp"
+                        android:layout_marginEnd="3dp"
+                        android:background="#BDBDBD" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="6dp"
+                        android:text="4+"
+                        android:textColor="#757575"
+                        android:textSize="12sp"
+                        tools:ignore="HardcodedText" />
+
+                    <View
+                        android:layout_width="10dp"
+                        android:layout_height="10dp"
+                        android:layout_marginEnd="3dp"
+                        android:background="#757575" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="6dp"
+                        android:text="7+"
+                        android:textColor="#757575"
+                        android:textSize="12sp"
+                        tools:ignore="HardcodedText" />
+
+                    <View
+                        android:layout_width="10dp"
+                        android:layout_height="10dp"
+                        android:layout_marginEnd="3dp"
+                        android:background="#424242" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="6dp"
+                        android:text="10+"
+                        android:textColor="#757575"
+                        android:textSize="12sp"
+                        tools:ignore="HardcodedText" />
+
+                    <View
+                        android:layout_width="10dp"
+                        android:layout_height="10dp"
+                        android:layout_marginEnd="3dp"
+                        android:background="#111111" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="12+"
+                        android:textColor="#757575"
+                        android:textSize="12sp"
+                        tools:ignore="HardcodedText" />
+
+                    <TextView
+                        android:id="@+id/tvMonthlyTotal"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="sans-serif-medium"
+                        android:gravity="end"
+                        android:text="Nov: 0H 00M"
+                        android:textColor="#1F1F1F"
+                        android:textSize="13sp"
+                        android:textStyle="bold"
+                        tools:ignore="HardcodedText" />
+                </LinearLayout>
             </LinearLayout>
 
-            <!-- 2. CARD: Study Breakdown & Ratio (LENGKAP DENGAN DIAGRAM LINGKARAN/DONUT CHART) -->
+            <!-- KARTU 2: Ringkasan Harian & Grafik Tangga Kumulatif -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="14dp"
+                android:background="@drawable/bg_stats_card"
                 android:orientation="vertical"
-                android:background="#F9F9F9"
-                android:padding="16dp"
-                android:layout_marginBottom="16dp">
+                android:padding="16dp">
+
+                <TextView
+                    android:id="@+id/tvSummaryDateTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:fontFamily="sans-serif-medium"
+                    android:gravity="center"
+                    android:text="Thu, Nov 19"
+                    android:textColor="#1F1F1F"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    tools:ignore="HardcodedText" />
+
+                <GridLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:columnCount="2">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_columnWeight="1"
+                        android:layout_margin="4dp"
+                        android:background="#F9F9F9"
+                        android:orientation="vertical"
+                        android:padding="12dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Total study time"
+                            android:textColor="#757575"
+                            android:textSize="12sp"
+                            tools:ignore="HardcodedText" />
+
+                        <TextView
+                            android:id="@+id/tvStatTotalStudy"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:fontFeatureSettings="tnum"
+                            android:text="0:00:00"
+                            android:textColor="#1F1F1F"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            tools:ignore="HardcodedText" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_columnWeight="1"
+                        android:layout_margin="4dp"
+                        android:background="#F9F9F9"
+                        android:orientation="vertical"
+                        android:padding="12dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Max focus time"
+                            android:textColor="#757575"
+                            android:textSize="12sp"
+                            tools:ignore="HardcodedText" />
+
+                        <TextView
+                            android:id="@+id/tvStatMaxFocus"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:fontFeatureSettings="tnum"
+                            android:text="0:00:00"
+                            android:textColor="#1F1F1F"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            tools:ignore="HardcodedText" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_columnWeight="1"
+                        android:layout_margin="4dp"
+                        android:background="#F9F9F9"
+                        android:orientation="vertical"
+                        android:padding="12dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Start time"
+                            android:textColor="#757575"
+                            android:textSize="12sp"
+                            tools:ignore="HardcodedText" />
+
+                        <TextView
+                            android:id="@+id/tvStatStartTime"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:fontFeatureSettings="tnum"
+                            android:text="-"
+                            android:textColor="#1F1F1F"
+                            android:textSize="15sp"
+                            android:textStyle="bold"
+                            tools:ignore="HardcodedText" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_columnWeight="1"
+                        android:layout_margin="4dp"
+                        android:background="#F9F9F9"
+                        android:orientation="vertical"
+                        android:padding="12dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="End time"
+                            android:textColor="#757575"
+                            android:textSize="12sp"
+                            tools:ignore="HardcodedText" />
+
+                        <TextView
+                            android:id="@+id/tvStatEndTime"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:fontFeatureSettings="tnum"
+                            android:text="-"
+                            android:textColor="#1F1F1F"
+                            android:textSize="15sp"
+                            android:textStyle="bold"
+                            tools:ignore="HardcodedText" />
+                    </LinearLayout>
+                </GridLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginBottom="12dp"
+                    android:background="#EFEFEF" />
+
+                <!-- Grafik Tangga Kumulatif + Up to [Jam] -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:baselineAligned="false"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.38"
+                        android:orientation="vertical"
+                        android:paddingEnd="8dp">
+
+                        <TextView
+                            android:id="@+id/tvUpToLabel"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Up to Now"
+                            android:textColor="#757575"
+                            android:textSize="12sp"
+                            tools:ignore="HardcodedText" />
+
+                        <TextView
+                            android:id="@+id/tvMorningStudyTime"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:fontFeatureSettings="tnum"
+                            android:text="0:00:00"
+                            android:textColor="#1F1F1F"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            tools:ignore="HardcodedText" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <View
+                                android:layout_width="8dp"
+                                android:layout_height="8dp"
+                                android:layout_marginEnd="6dp"
+                                android:background="@drawable/bg_dot_dark" />
+
+                            <TextView
+                                android:id="@+id/tvPeriodBadgeText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Today"
+                                android:textColor="#757575"
+                                android:textSize="12sp"
+                                tools:ignore="HardcodedText" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <com.example.purrfectstudy_anelka.CumulativeStepChartView
+                        android:id="@+id/chartCumulativeStep"
+                        android:layout_width="0dp"
+                        android:layout_height="115dp"
+                        android:layout_weight="0.62" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- KARTU 3: Dua Donut Chart Dinamis Monokrom -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="14dp"
+                android:background="@drawable/bg_stats_card"
+                android:orientation="vertical"
+                android:padding="16dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="14dp"
+                    android:fontFamily="sans-serif-medium"
                     android:text="Study Breakdown &amp; Ratio"
+                    android:textColor="#1F1F1F"
                     android:textSize="15sp"
                     android:textStyle="bold"
-                    android:textColor="#000000"
-                    android:layout_marginBottom="14dp"
                     tools:ignore="HardcodedText" />
 
-                <!-- Baris 1: Donut Chart Total Waktu & Rincian Mapel -->
+                <!-- Donut Chart 1: Study Breakdown per Mapel -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
+                    android:layout_marginBottom="16dp"
                     android:gravity="center_vertical"
-                    android:layout_marginBottom="16dp">
+                    android:orientation="horizontal">
 
-                    <!-- Donut Chart 1 (Total Waktu di Tengah) -->
-                    <FrameLayout
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:background="@drawable/bg_donut"
-                        android:layout_marginEnd="16dp"
-                        android:gravity="center">
-                        <TextView
-                            android:id="@+id/tvDonutTotal"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:gravity="center"
-                            android:text="0:00:00"
-                            android:textSize="12sp"
-                            android:textStyle="bold"
-                            android:textColor="#000000"
-                            tools:ignore="HardcodedText" />
-                    </FrameLayout>
+                    <com.example.purrfectstudy_anelka.DonutChartView
+                        android:id="@+id/donutBreakdown"
+                        android:layout_width="120dp"
+                        android:layout_height="120dp"
+                        android:layout_marginEnd="14dp" />
 
-                    <!-- Container Rincian Mapel Dinamis -->
                     <LinearLayout
                         android:id="@+id/containerBreakdown"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:orientation="vertical">
-                        <!-- Diisi otomatis via Kotlin -->
-                    </LinearLayout>
+                        android:orientation="vertical" />
                 </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="#E0E0E0"
-                    android:layout_marginBottom="14dp"/>
+                    android:layout_marginBottom="16dp"
+                    android:background="#EFEFEF" />
 
-                <!-- Baris 2: Donut Chart Rasio (Study / Other) -->
+                <!-- Donut Chart 2: Rasio Study vs Other (24 Jam) -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical">
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
 
-                    <!-- Donut Chart 2 (Rasio 65/35) -->
-                    <FrameLayout
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:background="@drawable/bg_donut"
-                        android:layout_marginEnd="16dp"
-                        android:gravity="center">
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:gravity="center"
-                            android:text="65 / 35"
-                            android:textSize="13sp"
-                            android:textStyle="bold"
-                            android:textColor="#000000"
-                            tools:ignore="HardcodedText" />
-                    </FrameLayout>
+                    <com.example.purrfectstudy_anelka.DonutChartView
+                        android:id="@+id/donutRatio"
+                        android:layout_width="120dp"
+                        android:layout_height="120dp"
+                        android:layout_marginEnd="14dp" />
 
-                    <!-- Keterangan Rasio -->
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:orientation="vertical">
 
-                        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical" android:paddingVertical="4dp">
-                            <View android:layout_width="10dp" android:layout_height="10dp" android:background="#000000" android:layout_marginEnd="8dp"/>
-                            <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Study" android:textSize="13sp" android:textColor="#000000" tools:ignore="HardcodedText"/>
-                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="15:30 - 65%" android:textSize="12sp" android:textColor="#666666" tools:ignore="HardcodedText"/>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:paddingVertical="5dp">
+
+                            <View
+                                android:layout_width="10dp"
+                                android:layout_height="10dp"
+                                android:layout_marginEnd="8dp"
+                                android:background="#111111" />
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="Study"
+                                android:textColor="#1F1F1F"
+                                android:textSize="13sp"
+                                tools:ignore="HardcodedText" />
+
+                            <TextView
+                                android:id="@+id/tvRatioStudy"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFeatureSettings="tnum"
+                                android:text="0:00 - 0%"
+                                android:textColor="#757575"
+                                android:textSize="12sp"
+                                tools:ignore="HardcodedText" />
                         </LinearLayout>
 
-                        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical" android:paddingVertical="4dp">
-                            <View android:layout_width="10dp" android:layout_height="10dp" android:background="#CCCCCC" android:layout_marginEnd="8dp"/>
-                            <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Other" android:textSize="13sp" android:textColor="#000000" tools:ignore="HardcodedText"/>
-                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="08:20 - 35%" android:textSize="12sp" android:textColor="#666666" tools:ignore="HardcodedText"/>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:paddingVertical="5dp">
+
+                            <View
+                                android:layout_width="10dp"
+                                android:layout_height="10dp"
+                                android:layout_marginEnd="8dp"
+                                android:background="#E5E5EA" />
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="Other"
+                                android:textColor="#1F1F1F"
+                                android:textSize="13sp"
+                                tools:ignore="HardcodedText" />
+
+                            <TextView
+                                android:id="@+id/tvRatioOther"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFeatureSettings="tnum"
+                                android:text="24:00 - 100%"
+                                android:textColor="#757575"
+                                android:textSize="12sp"
+                                tools:ignore="HardcodedText" />
                         </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
 
-            <!-- 3. CARD: Daily Focus Log & Mascot Box -->
+            <!-- KARTU 4: Mascot & Grid Aktivitas 24 Jam (5 pagi - 4 subuh) -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="14dp"
+                android:background="@drawable/bg_stats_card"
                 android:orientation="vertical"
-                android:background="#F9F9F9"
-                android:padding="16dp"
-                android:layout_marginBottom="16dp">
+                android:padding="16dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
+                    android:layout_marginBottom="12dp"
                     android:gravity="center_vertical"
-                    android:layout_marginBottom="12dp">
+                    android:orientation="horizontal">
+
                     <TextView
                         android:id="@+id/tvDailyDateHeader"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Wed, Nov 18, 2026"
+                        android:fontFamily="sans-serif-medium"
+                        android:text="Thu, Nov 19, 2026"
+                        android:textColor="#1F1F1F"
                         android:textSize="14sp"
                         android:textStyle="bold"
-                        android:textColor="#000000"
                         tools:ignore="HardcodedText" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Daily Focus Log"
+                        android:text="Hourly Activity"
+                        android:textColor="#757575"
                         android:textSize="12sp"
-                        android:textColor="#666666"
                         tools:ignore="HardcodedText" />
                 </LinearLayout>
 
-                <!-- Grid 4 Kotak Stats -->
-                <GridLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:columnCount="2"
-                    android:layout_marginBottom="12dp">
-
-                    <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_columnWeight="1" android:orientation="vertical" android:background="#FFFFFF" android:padding="12dp" android:layout_margin="3dp">
-                        <TextView android:text="Total study time" android:textSize="11sp" android:textColor="#666666" android:layout_width="wrap_content" android:layout_height="wrap_content" tools:ignore="HardcodedText"/>
-                        <TextView android:id="@+id/tvStatTotalStudy" android:text="0:00:00" android:textSize="15sp" android:textStyle="bold" android:textColor="#000000" android:layout_width="wrap_content" android:layout_height="wrap_content" tools:ignore="HardcodedText"/>
-                    </LinearLayout>
-
-                    <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_columnWeight="1" android:orientation="vertical" android:background="#FFFFFF" android:padding="12dp" android:layout_margin="3dp">
-                        <TextView android:text="Max focus time" android:textSize="11sp" android:textColor="#666666" android:layout_width="wrap_content" android:layout_height="wrap_content" tools:ignore="HardcodedText"/>
-                        <TextView android:id="@+id/tvStatMaxFocus" android:text="0:00:00" android:textSize="15sp" android:textStyle="bold" android:textColor="#000000" android:layout_width="wrap_content" android:layout_height="wrap_content" tools:ignore="HardcodedText"/>
-                    </LinearLayout>
-
-                    <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_columnWeight="1" android:orientation="vertical" android:background="#FFFFFF" android:padding="12dp" android:layout_margin="3dp">
-                        <TextView android:text="Start time" android:textSize="11sp" android:textColor="#666666" android:layout_width="wrap_content" android:layout_height="wrap_content" tools:ignore="HardcodedText"/>
-                        <TextView android:text="AM 7:06" android:textSize="15sp" android:textStyle="bold" android:textColor="#000000" android:layout_width="wrap_content" android:layout_height="wrap_content" tools:ignore="HardcodedText"/>
-                    </LinearLayout>
-
-                    <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_columnWeight="1" android:orientation="vertical" android:background="#FFFFFF" android:padding="12dp" android:layout_margin="3dp">
-                        <TextView android:text="End time" android:textSize="11sp" android:textColor="#666666" android:layout_width="wrap_content" android:layout_height="wrap_content" tools:ignore="HardcodedText"/>
-                        <TextView android:text="PM 7:03" android:textSize="15sp" android:textStyle="bold" android:textColor="#000000" android:layout_width="wrap_content" android:layout_height="wrap_content" tools:ignore="HardcodedText"/>
-                    </LinearLayout>
-                </GridLayout>
-
-                <!-- Box Mascot & Jam -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:background="#FFFFFF"
-                    android:padding="16dp"
-                    android:gravity="center_vertical">
+                    android:baselineAligned="false"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
 
                     <LinearLayout
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginEnd="10dp"
+                        android:layout_weight="0.38"
+                        android:background="#F9F9F9"
+                        android:gravity="center"
                         android:orientation="vertical"
-                        android:gravity="center">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="🐶 📚"
-                            android:textSize="32sp"
-                            android:layout_marginBottom="6dp"
-                            tools:ignore="HardcodedText"/>
+                        android:padding="14dp">
+
+                        <ImageView
+                            android:id="@+id/ivStatsMascot"
+                            android:layout_width="64dp"
+                            android:layout_height="64dp"
+                            android:layout_marginBottom="8dp"
+                            android:contentDescription="Maskot Belajar"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/ic_cat_default"
+                            tools:ignore="HardcodedText" />
+
                         <TextView
                             android:id="@+id/tvMascotTimer"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:fontFeatureSettings="tnum"
                             android:text="0:00:00"
-                            android:textSize="18sp"
+                            android:textColor="#1F1F1F"
+                            android:textSize="16sp"
                             android:textStyle="bold"
-                            android:textColor="#000000"
-                            tools:ignore="HardcodedText"/>
+                            tools:ignore="HardcodedText" />
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Stattoon • Dual Mood"
-                            android:textSize="10sp"
-                            android:textColor="#888888"
-                            tools:ignore="HardcodedText"/>
+                            android:layout_marginTop="2dp"
+                            android:text="Purrfect Focus"
+                            android:textColor="#757575"
+                            android:textSize="12sp"
+                            tools:ignore="HardcodedText" />
                     </LinearLayout>
+
+                    <com.example.purrfectstudy_anelka.HourlyActivityGridView
+                        android:id="@+id/hourlyActivityGrid"
+                        android:layout_width="0dp"
+                        android:layout_height="264dp"
+                        android:layout_weight="0.62" />
                 </LinearLayout>
             </LinearLayout>
 
-            <!-- 4. Detailed Study Timeline -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Detailed Study Timeline"
-                android:textSize="15sp"
-                android:textStyle="bold"
-                android:textColor="#000000"
-                android:layout_marginBottom="10dp"
-                tools:ignore="HardcodedText" />
-
-            <!-- Container Timeline Dinamis -->
+            <!-- KARTU 5: Detailed Study Timeline Interaktif Monokrom -->
             <LinearLayout
-                android:id="@+id/containerTimeline"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
-                <!-- Diisi otomatis via Kotlin -->
+                android:background="@drawable/bg_stats_card"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="sans-serif-medium"
+                        android:text="Detailed Study Timeline"
+                        android:textColor="#1F1F1F"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        tools:ignore="HardcodedText" />
+
+                    <TextView
+                        android:id="@+id/btnAddTimelineSession"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="#F2F2F2"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:fontFamily="sans-serif-medium"
+                        android:paddingHorizontal="10dp"
+                        android:paddingVertical="5dp"
+                        android:text="+ Add"
+                        android:textColor="#111111"
+                        android:textSize="12sp"
+                        tools:ignore="HardcodedText" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/containerTimeline"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" />
             </LinearLayout>
 
         </LinearLayout>
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
 
 </LinearLayout>

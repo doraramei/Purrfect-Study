@@ -2,326 +2,215 @@ package com.example.purrfectstudy_anelka
 
 import android.content.Context
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
-import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import android.widget.FrameLayout
 import android.widget.LinearLayout
+import android.widget.PopupMenu
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
+import androidx.core.widget.NestedScrollView
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
 class HomeActivity : AppCompatActivity() {
 
-    private lateinit var tvMatematikaTime: TextView
-    private lateinit var tvBindoTime: TextView
-    private lateinit var tvBingTime: TextView
+    private lateinit var tvDateHeader: TextView
     private lateinit var tvMainTimer: TextView
+    private lateinit var scrollSubjects: NestedScrollView
     private lateinit var containerSubjects: LinearLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
-        // Inisialisasi Views
-        tvMatematikaTime = findViewById(R.id.tvMatematikaTime)
-        tvBindoTime = findViewById(R.id.tvBindoTime)
-        tvBingTime = findViewById(R.id.tvBingTime)
+        tvDateHeader = findViewById(R.id.tvDateHeader)
         tvMainTimer = findViewById(R.id.tvMainTimer)
+        scrollSubjects = findViewById(R.id.scrollSubjects)
+        scrollSubjects.enableMouseWheelScroll()
         containerSubjects = findViewById(R.id.containerSubjects)
 
-        // 1. Set Tanggal Otomatis Real-Life
-        val tvDate = findViewById<TextView>(R.id.tvDateHeader)
-        val currentDate = SimpleDateFormat("EEE, MMM dd, yyyy", Locale.getDefault()).format(Date())
-        tvDate?.text = currentDate
+        // 1. Set Tanggal Dinamis
+        val currentDate = SimpleDateFormat("EEE, MM/dd", Locale.ENGLISH).format(Date())
+        tvDateHeader.text = currentDate
 
-        // 2. Navigasi ke Tab Statistics
-        val tvTabStatistics = findViewById<TextView>(R.id.tvTabStatistics)
-        tvTabStatistics?.setOnClickListener {
-            val intent = Intent(this, StatisticsActivity::class.java)
-            startActivity(intent)
+        // 2. 2 Tab Navigasi Horizontal (Timer | Statistics)
+        findViewById<TextView>(R.id.tvTabTimer).setOnClickListener {
+            scrollSubjects.smoothScrollTo(0, 0)
         }
 
-        // 3. Pasang fungsi menu titik tiga untuk 3 Mapel Default
-        setupSubjectMenu(
-            findViewById(R.id.layoutMatematika),
-            findViewById(R.id.tvMatematikaName),
-            tvMatematikaTime,
-            findViewById(R.id.btnMoreMatematika),
-            containerSubjects,
-            "Matematika",
-            false
-        )
-        setupSubjectMenu(
-            findViewById(R.id.layoutBindo),
-            findViewById(R.id.tvBindoName),
-            tvBindoTime,
-            findViewById(R.id.btnMoreBindo),
-            containerSubjects,
-            "Bahasa Indonesia",
-            false
-        )
-        setupSubjectMenu(
-            findViewById(R.id.layoutBing),
-            findViewById(R.id.tvBingName),
-            tvBingTime,
-            findViewById(R.id.btnMoreBing),
-            containerSubjects,
-            "Bahasa Inggris",
-            false
-        )
+        findViewById<TextView>(R.id.tvTabStatistics).setOnClickListener {
+            startActivity(Intent(this, StatisticsActivity::class.java))
+            @Suppress("DEPRECATION")
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+        }
 
-        // 4. Logika Tambah Mapel Baru via Tombol "+ Edit subject"
-        val btnEditSubject = findViewById<Button>(R.id.btnEditSubject)
+        // 3. Tombol "+ Edit subject"
+        findViewById<TextView>(R.id.btnEditSubject).setOnClickListener {
+            showAddSubjectDialog()
+        }
 
-        btnEditSubject?.setOnClickListener {
-            val dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_add_subject, null)
-            val etNewSubject = dialogView.findViewById<EditText>(R.id.etNewSubjectName)
-            val btnSave = dialogView.findViewById<Button>(R.id.btnSaveSubject)
+        // 4. Bottom Navigation Bar dengan transisi halus
+        findViewById<FrameLayout>(R.id.navHome).setOnClickListener {
+            scrollSubjects.smoothScrollTo(0, 0)
+        }
 
-            val dialog = AlertDialog.Builder(this)
-                .setView(dialogView)
-                .create()
+        findViewById<LinearLayout>(R.id.navTodo).setOnClickListener {
+            val intent = Intent(this, TodoActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
+            startActivity(intent)
+            @Suppress("DEPRECATION")
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+        }
 
-            btnSave.setOnClickListener {
-                val subjectName = etNewSubject.text.toString().trim()
-                if (subjectName.isNotEmpty()) {
-                    // Simpan nama mapel custom ke SharedPreferences supaya tidak hilang
-                    saveCustomSubjectToPrefs(subjectName)
+        findViewById<LinearLayout>(R.id.navCalendar).setOnClickListener {
+            val intent = Intent(this, CalendarActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
+            startActivity(intent)
+            @Suppress("DEPRECATION")
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+        }
 
-                    // Buat dan tampilkan UI mapel baru tersebut
-                    loadAllStudyTimesAndCustomSubjects()
-                    dialog.dismiss()
-                }
-            }
-            dialog.show()
+        findViewById<LinearLayout>(R.id.navGroups).setOnClickListener {
+            val intent = Intent(this, GroupsListActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
+            startActivity(intent)
+            @Suppress("DEPRECATION")
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+        }
+
+        findViewById<FrameLayout>(R.id.btnQuickSettings).setOnClickListener {
+            startActivity(Intent(this, SettingsActivity::class.java))
+            @Suppress("DEPRECATION")
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
         }
     }
 
-    // Dipanggil otomatis saat kembali ke halaman Home
     override fun onResume() {
         super.onResume()
-        loadAllStudyTimesAndCustomSubjects()
+        loadAllStudyTimesAndSubjects()
     }
 
-    // Simpan nama mapel custom ke SharedPreferences
-    private fun saveCustomSubjectToPrefs(name: String) {
-        val prefs = getSharedPreferences("PurrfectStudyPrefs", Context.MODE_PRIVATE)
-        val customSet = prefs.getStringSet("CUSTOM_SUBJECTS_SET", mutableSetOf()) ?: mutableSetOf()
-        val mutableSet = customSet.toMutableSet()
-        mutableSet.add(name)
-        prefs.edit().putStringSet("CUSTOM_SUBJECTS_SET", mutableSet).apply()
+    private fun openFocusTimer(subjectName: String) {
+        val intent = Intent(this, FocusTimerActivity::class.java)
+        intent.putExtra("EXTRA_SUBJECT", subjectName)
+        startActivity(intent)
+        @Suppress("DEPRECATION")
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
     }
 
-    // Muat ulang semua waktu belajar dan muat kembali mapel custom yang pernah dibuat
-    private fun loadAllStudyTimesAndCustomSubjects() {
-        val prefs = getSharedPreferences("PurrfectStudyPrefs", Context.MODE_PRIVATE)
+    private fun showAddSubjectDialog() {
+        val dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_add_subject, null)
+        val etNewSubject = dialogView.findViewById<EditText>(R.id.etNewSubjectName)
+        val btnSave = dialogView.findViewById<Button>(R.id.btnSaveSubject)
 
-        // Cek Reset Jam 12 Malam (Ganti Hari)
-        val currentDate = SimpleDateFormat("yyyyMMdd", Locale.getDefault()).format(Date())
-        val savedDate = prefs.getString("LAST_STUDY_DATE", "")
-        if (savedDate != currentDate) {
-            prefs.edit().clear().putString("LAST_STUDY_DATE", currentDate).apply()
-        }
+        val dialog = AlertDialog.Builder(this)
+            .setView(dialogView)
+            .create()
 
-        // 1. Hitung waktu 3 Mapel Default
-        val mathSecs = prefs.getInt("time_Matematika", 0)
-        val bindoSecs = prefs.getInt("time_Bahasa Indonesia", 0)
-        val bingSecs = prefs.getInt("time_Bahasa Inggris", 0)
-
-        tvMatematikaTime.text = formatSecondsToTime(mathSecs)
-        tvBindoTime.text = formatSecondsToTime(bindoSecs)
-        tvBingTime.text = formatSecondsToTime(bingSecs)
-
-        var grandTotal = mathSecs + bindoSecs + bingSecs
-
-        // 2. Bersihkan view custom mapel lama sebelum dirender ulang agar tidak menumpuk duplikat
-        val viewsToRemove = mutableListOf<View>()
-        for (i in 0 until containerSubjects.childCount) {
-            val child = containerSubjects.getChildAt(i)
-            if (child.tag == "CUSTOM_SUBJECT_VIEW") {
-                viewsToRemove.add(child)
+        btnSave.setOnClickListener {
+            val subjectName = etNewSubject.text.toString().trim()
+            if (subjectName.isNotEmpty()) {
+                addSubjectToPrefs(subjectName)
+                loadAllStudyTimesAndSubjects()
+                dialog.dismiss()
+            } else {
+                Toast.makeText(this, "Nama mata pelajaran tidak boleh kosong", Toast.LENGTH_SHORT).show()
             }
         }
-        for (v in viewsToRemove) {
-            containerSubjects.removeView(v)
-        }
-
-        // 3. Muat kembali mapel custom dari SharedPreferences
-        val customSet = prefs.getStringSet("CUSTOM_SUBJECTS_SET", emptySet()) ?: emptySet()
-        val btnEditSubject = findViewById<Button>(R.id.btnEditSubject)
-        val btnEditIndex = containerSubjects.indexOfChild(btnEditSubject)
-
-        var insertIndex = if (btnEditIndex != -1) btnEditIndex else containerSubjects.childCount
-
-        for (subjectName in customSet) {
-            val customSecs = prefs.getInt("time_$subjectName", 0)
-            grandTotal += customSecs
-
-            // Buat baris item mapel custom secara dinamis
-            val scale = resources.displayMetrics.density
-            val itemLayout = LinearLayout(this).apply {
-                layoutParams = LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.MATCH_PARENT,
-                    (50 * scale).toInt()
-                )
-                orientation = LinearLayout.HORIZONTAL
-                gravity = Gravity.CENTER_VERTICAL
-                tag = "CUSTOM_SUBJECT_VIEW"
-            }
-
-            val dot = View(this).apply {
-                layoutParams = LinearLayout.LayoutParams(
-                    (16 * scale).toInt(),
-                    (16 * scale).toInt()
-                ).apply { rightMargin = (12 * scale).toInt() }
-            }
-            dot.background = ContextCompat.getDrawable(this@HomeActivity, R.drawable.ic_play_circle)
-
-            val tvName = TextView(this).apply {
-                layoutParams = LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f)
-                text = subjectName
-                textSize = 16f
-                setTextColor(Color.BLACK)
-            }
-
-            val tvTime = TextView(this).apply {
-                layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT)
-                text = formatSecondsToTime(customSecs)
-                setTextColor(Color.parseColor("#666666"))
-                setPadding(0, 0, (12 * scale).toInt(), 0)
-            }
-
-            val btnMore = TextView(this).apply {
-                layoutParams = LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.WRAP_CONTENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT
-                )
-                text = "⋮"
-                textSize = 20f
-                setTextColor(Color.parseColor("#666666"))
-                setPadding((8 * scale).toInt(), 0, (8 * scale).toInt(), 0)
-                isClickable = true
-                isFocusable = true
-            }
-
-            // Pasang fungsi klik & menu untuk mapel custom ini
-            setupSubjectMenu(itemLayout, tvName, tvTime, btnMore, containerSubjects, subjectName, true)
-
-            itemLayout.addView(dot)
-            itemLayout.addView(tvName)
-            itemLayout.addView(tvTime)
-            itemLayout.addView(btnMore)
-
-            containerSubjects.addView(itemLayout, insertIndex)
-            insertIndex++
-        }
-
-        // Update timer utama di bagian atas Home
-        tvMainTimer.text = formatSecondsToTime(grandTotal)
+        dialog.show()
     }
 
-    private fun formatSecondsToTime(totalSeconds: Int): String {
-        val hours = totalSeconds / 3600
-        val minutes = (totalSeconds % 3600) / 60
-        val secs = totalSeconds % 60
-        return String.format(Locale.getDefault(), "%d:%02d:%02d", hours, minutes, secs)
+    private fun addSubjectToPrefs(name: String) {
+        val prefs = getSharedPreferences(StudyRepository.PREFS_NAME, Context.MODE_PRIVATE)
+        val deletedDefaults = prefs.getStringSet("DELETED_DEFAULT_SUBJECTS_SET", emptySet())?.toMutableSet() ?: mutableSetOf()
+        val customSet = prefs.getStringSet("CUSTOM_SUBJECTS_SET", emptySet())?.toMutableSet() ?: mutableSetOf()
+
+        if (StudyRepository.defaultHomeSubjects.contains(name)) {
+            deletedDefaults.remove(name)
+        } else {
+            customSet.add(name)
+        }
+
+        prefs.edit()
+            .putStringSet("DELETED_DEFAULT_SUBJECTS_SET", deletedDefaults)
+            .putStringSet("CUSTOM_SUBJECTS_SET", customSet)
+            .apply()
     }
 
-    // Fungsi pembantu untuk mengatur Klik Mapel & Popup Menu (Edit & Hapus)
-    private fun setupSubjectMenu(
-        itemLayout: LinearLayout,
-        tvName: TextView,
-        tvTime: TextView,
+    private fun loadAllStudyTimesAndSubjects() {
+        StudyRepository.ensureDailyResetWithoutLosingConfig(this)
+        val prefs = getSharedPreferences(StudyRepository.PREFS_NAME, Context.MODE_PRIVATE)
+
+        val activeNames = StudyRepository.getActiveHomeSubjects(this)
+        val deletedDefaults = prefs.getStringSet("DELETED_DEFAULT_SUBJECTS_SET", emptySet()) ?: emptySet()
+
+        containerSubjects.removeAllViews()
+        val inflater = LayoutInflater.from(this)
+        var grandTotal = 0
+
+        for (subjectName in activeNames) {
+            val isCustom = !StudyRepository.defaultHomeSubjects.contains(subjectName) || deletedDefaults.contains(subjectName)
+            val secs = prefs.getInt("time_$subjectName", 0)
+            grandTotal += secs
+
+            val rowView = inflater.inflate(R.layout.item_subject, containerSubjects, false)
+            val btnPlay = rowView.findViewById<View>(R.id.btnPlaySubject)
+            val tvName = rowView.findViewById<TextView>(R.id.tvSubjectName)
+            val tvTime = rowView.findViewById<TextView>(R.id.tvSubjectTime)
+            val btnMore = rowView.findViewById<TextView>(R.id.btnMoreSubject)
+
+            tvName.text = subjectName
+            tvTime.text = StudyRepository.formatSecondsToTime(secs)
+
+            setupSubjectRowActions(rowView, btnPlay, btnMore, subjectName, isCustom)
+            containerSubjects.addView(rowView)
+        }
+
+        for ((key, value) in prefs.all) {
+            if (key.startsWith("time_") && value is Int) {
+                val sub = key.removePrefix("time_")
+                if (!activeNames.contains(sub)) {
+                    grandTotal += value
+                }
+            }
+        }
+
+        tvMainTimer.text = StudyRepository.formatSecondsToTime(grandTotal)
+    }
+
+    private fun setupSubjectRowActions(
+        rowView: View,
+        btnPlay: View,
         btnMore: TextView,
-        container: LinearLayout,
-        subjectKeyName: String,
+        subjectName: String,
         isCustom: Boolean
     ) {
-        // Aksi saat baris mapel diklik -> Buka Focus Timer dengan membawa nama mapel
-        itemLayout.isClickable = true
-        itemLayout.isFocusable = true
-        itemLayout.setOnClickListener {
-            val intent = Intent(this, FocusTimerActivity::class.java)
-            intent.putExtra("EXTRA_SUBJECT", tvName.text.toString())
-            startActivity(intent)
+        val launchSession = View.OnClickListener {
+            openFocusTimer(subjectName)
         }
+        rowView.setOnClickListener(launchSession)
+        btnPlay.setOnClickListener(launchSession)
 
-        // Aksi saat tombol titik tiga (⋮) diklik
-        btnMore.setOnClickListener { view ->
-            val popup = android.widget.PopupMenu(this, view)
+        val showSubjectMenu: (View) -> Unit = { anchor ->
+            val popup = PopupMenu(this, anchor)
             popup.menu.add(0, 1, 0, "Edit")
             popup.menu.add(0, 2, 1, "Hapus")
 
             popup.setOnMenuItemClickListener { item ->
                 when (item.itemId) {
                     1 -> {
-                        // Menu Edit Nama Mapel
-                        val editView = LayoutInflater.from(this).inflate(R.layout.dialog_add_subject, null)
-                        val etEdit = editView.findViewById<EditText>(R.id.etNewSubjectName)
-                        val btnSubmit = editView.findViewById<Button>(R.id.btnSaveSubject)
-
-                        etEdit.setText(tvName.text.toString())
-                        btnSubmit.text = "Simpan Perubahan"
-
-                        val editDialog = AlertDialog.Builder(this)
-                            .setView(editView)
-                            .create()
-
-                        btnSubmit.setOnClickListener {
-                            val newName = etEdit.text.toString().trim()
-                            if (newName.isNotEmpty()) {
-                                val prefs = getSharedPreferences("PurrfectStudyPrefs", Context.MODE_PRIVATE)
-                                val oldTime = prefs.getInt("time_$subjectKeyName", 0)
-
-                                // Pindahkan data waktu ke nama key baru
-                                prefs.edit().remove("time_$subjectKeyName")
-                                    .putInt("time_$newName", oldTime).apply()
-
-                                if (isCustom) {
-                                    val customSet = prefs.getStringSet("CUSTOM_SUBJECTS_SET", mutableSetOf()) ?: mutableSetOf()
-                                    val mutableSet = customSet.toMutableSet()
-                                    mutableSet.remove(subjectKeyName)
-                                    mutableSet.add(newName)
-                                    prefs.edit().putStringSet("CUSTOM_SUBJECTS_SET", mutableSet).apply()
-                                }
-
-                                tvName.text = newName
-                                editDialog.dismiss()
-                                loadAllStudyTimesAndCustomSubjects()
-                            }
-                        }
-                        editDialog.show()
+                        showEditSubjectDialog(subjectName, isCustom)
                         true
                     }
                     2 -> {
-                        // Menu Hapus Mapel
-                        AlertDialog.Builder(this)
-                            .setTitle("Hapus Mapel")
-                            .setMessage("Yakin ingin menghapus mapel ${tvName.text}?")
-                            .setPositiveButton("Hapus") { _, _ ->
-                                val prefs = getSharedPreferences("PurrfectStudyPrefs", Context.MODE_PRIVATE)
-                                prefs.edit().remove("time_$subjectKeyName").apply()
-
-                                if (isCustom) {
-                                    val customSet = prefs.getStringSet("CUSTOM_SUBJECTS_SET", mutableSetOf()) ?: mutableSetOf()
-                                    val mutableSet = customSet.toMutableSet()
-                                    mutableSet.remove(subjectKeyName)
-                                    prefs.edit().putStringSet("CUSTOM_SUBJECTS_SET", mutableSet).apply()
-                                }
-
-                                container.removeView(itemLayout)
-                                loadAllStudyTimesAndCustomSubjects()
-                            }
-                            .setNegativeButton("Batal", null)
-                            .show()
+                        showDeleteSubjectDialog(subjectName, isCustom)
                         true
                     }
                     else -> false
@@ -329,5 +218,87 @@ class HomeActivity : AppCompatActivity() {
             }
             popup.show()
         }
+
+        btnMore.setOnClickListener { anchor -> showSubjectMenu(anchor) }
+        rowView.setOnLongClickListener { anchor ->
+            showSubjectMenu(anchor)
+            true
+        }
+    }
+
+    private fun showEditSubjectDialog(oldName: String, isCustom: Boolean) {
+        val editView = LayoutInflater.from(this).inflate(R.layout.dialog_add_subject, null)
+        val etEdit = editView.findViewById<EditText>(R.id.etNewSubjectName)
+        val btnSubmit = editView.findViewById<Button>(R.id.btnSaveSubject)
+
+        etEdit.setText(oldName)
+        btnSubmit.text = "Simpan Perubahan"
+
+        val editDialog = AlertDialog.Builder(this)
+            .setView(editView)
+            .create()
+
+        btnSubmit.setOnClickListener {
+            val newName = etEdit.text.toString().trim()
+            if (newName.isNotEmpty() && newName != oldName) {
+                val prefs = getSharedPreferences(StudyRepository.PREFS_NAME, Context.MODE_PRIVATE)
+                val oldTime = prefs.getInt("time_$oldName", 0)
+
+                val deletedDefaults = prefs.getStringSet("DELETED_DEFAULT_SUBJECTS_SET", emptySet())?.toMutableSet() ?: mutableSetOf()
+                val customSet = prefs.getStringSet("CUSTOM_SUBJECTS_SET", emptySet())?.toMutableSet() ?: mutableSetOf()
+
+                if (isCustom) {
+                    customSet.remove(oldName)
+                } else {
+                    deletedDefaults.add(oldName)
+                }
+
+                if (StudyRepository.defaultHomeSubjects.contains(newName)) {
+                    deletedDefaults.remove(newName)
+                } else {
+                    customSet.add(newName)
+                }
+
+                prefs.edit()
+                    .remove("time_$oldName")
+                    .putInt("time_$newName", oldTime)
+                    .putStringSet("DELETED_DEFAULT_SUBJECTS_SET", deletedDefaults)
+                    .putStringSet("CUSTOM_SUBJECTS_SET", customSet)
+                    .apply()
+
+                editDialog.dismiss()
+                loadAllStudyTimesAndSubjects()
+            } else if (newName == oldName) {
+                editDialog.dismiss()
+            }
+        }
+        editDialog.show()
+    }
+
+    private fun showDeleteSubjectDialog(subjectName: String, isCustom: Boolean) {
+        AlertDialog.Builder(this)
+            .setTitle("Hapus Mapel")
+            .setMessage("Yakin ingin menghapus mapel $subjectName?")
+            .setPositiveButton("Hapus") { _, _ ->
+                val prefs = getSharedPreferences(StudyRepository.PREFS_NAME, Context.MODE_PRIVATE)
+                val deletedDefaults = prefs.getStringSet("DELETED_DEFAULT_SUBJECTS_SET", emptySet())?.toMutableSet() ?: mutableSetOf()
+                val customSet = prefs.getStringSet("CUSTOM_SUBJECTS_SET", emptySet())?.toMutableSet() ?: mutableSetOf()
+
+                if (isCustom) {
+                    customSet.remove(subjectName)
+                } else {
+                    deletedDefaults.add(subjectName)
+                }
+
+                prefs.edit()
+                    .remove("time_$subjectName")
+                    .putStringSet("DELETED_DEFAULT_SUBJECTS_SET", deletedDefaults)
+                    .putStringSet("CUSTOM_SUBJECTS_SET", customSet)
+                    .apply()
+
+                loadAllStudyTimesAndSubjects()
+            }
+            .setNegativeButton("Batal", null)
+            .show()
     }
 }

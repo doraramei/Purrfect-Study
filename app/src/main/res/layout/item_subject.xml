@@ -1,38 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="?attr/selectableItemBackground"
-    android:gravity="center_vertical"
-    android:orientation="horizontal"
-    android:paddingVertical="12dp">
+    android:clickable="true"
+    android:focusable="true"
+    android:orientation="vertical"
+    android:paddingHorizontal="20dp">
 
-    <!-- Lingkaran Indikator di Kiri -->
+    <!-- Baris Mata Pelajaran (52dp) -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <!-- Lingkaran Play Abu-abu Lembut Kiri (32dp) dengan Ikon Segitiga Play (14dp) -->
+        <FrameLayout
+            android:id="@+id/btnPlaySubject"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginEnd="14dp"
+            android:background="@drawable/bg_circle_soft_gray"
+            android:clickable="true"
+            android:focusable="true">
+
+            <ImageView
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:layout_gravity="center"
+                android:contentDescription="Mulai belajar"
+                android:src="@drawable/ic_play_terracotta"
+                app:tint="#1F1F1F"
+                tools:ignore="HardcodedText" />
+        </FrameLayout>
+
+        <!-- Nama Mata Pelajaran -->
+        <TextView
+            android:id="@+id/tvSubjectName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:fontFamily="sans-serif"
+            android:maxLines="1"
+            android:text="Literasi B.Ing"
+            android:textColor="#1F1F1F"
+            android:textSize="15sp"
+            tools:ignore="HardcodedText" />
+
+        <!-- Durasi Belajar (tnum agar angka sejajar) -->
+        <TextView
+            android:id="@+id/tvSubjectTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif"
+            android:fontFeatureSettings="tnum"
+            android:text="0:00:00"
+            android:textColor="#757575"
+            android:textSize="14sp"
+            tools:ignore="HardcodedText" />
+
+        <!-- Menu Titik Tiga Vertikal -->
+        <TextView
+            android:id="@+id/btnMoreSubject"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center"
+            android:minWidth="32dp"
+            android:padding="8dp"
+            android:text="⋮"
+            android:textColor="#757575"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            tools:ignore="HardcodedText" />
+    </LinearLayout>
+
+    <!-- Garis Pemisah Halus Sejajar Tepi Kiri Nama Mapel hingga Kanan -->
     <View
-        android:id="@+id/viewCircleIndicator"
-        android:layout_width="26dp"
-        android:layout_height="26dp"
-        android:background="@drawable/circle_subject" />
-
-    <!-- Nama Mata Pelajaran -->
-    <TextView
-        android:id="@+id/tvSubjectName"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="14dp"
-        android:layout_weight="1"
-        android:text="Literasi BIng"
-        android:textColor="@color/charcoal_text"
-        android:textSize="15sp"
-        android:textStyle="bold" />
-
-    <!-- Waktu Belajar Per Mata Pelajaran -->
-    <TextView
-        android:id="@+id/tvSubjectTime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="0:00:00"
-        android:textColor="@color/muted_gray"
-        android:textSize="14sp" />
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginStart="46dp"
+        android:background="#F0F0F0" />
 
 </LinearLayout>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="48dp"
+    android:height="48dp"
+    android:viewportWidth="48"
+    android:viewportHeight="48">
+    <!-- Telinga -->
+    <path
+        android:fillColor="#E07A5F"
+        android:pathData="M12,18 L15,7 L21,15 Z" />
+    <path
+        android:fillColor="#E07A5F"
+        android:pathData="M36,18 L33,7 L27,15 Z" />
+    <path
+        android:fillColor="#FAD2C3"
+        android:pathData="M14,16 L16,10 L19,15 Z" />
+    <path
+        android:fillColor="#FAD2C3"
+        android:pathData="M34,16 L32,10 L29,15 Z" />
+    <!-- Kepala -->
+    <path
+        android:fillColor="#F4A261"
+        android:pathData="M11,22 C11,14 17,11 24,11 C31,11 37,14 37,22 C37,29 31,32 24,32 C17,32 11,29 11,22 Z" />
+    <!-- Mata -->
+    <path
+        android:fillColor="#2D2A26"
+        android:pathData="M18,21 A2,2 0 1,0 22,21 A2,2 0 1,0 18,21 Z" />
+    <path
+        android:fillColor="#2D2A26"
+        android:pathData="M26,21 A2,2 0 1,0 30,21 A2,2 0 1,0 26,21 Z" />
+    <!-- Hidung & Mulut -->
+    <path
+        android:fillColor="#E07A5F"
+        android:pathData="M22.5,24 L25.5,24 L24,26 Z" />
+    <!-- Buku terbuka di depan -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:strokeColor="#2D2A26"
+        android:strokeWidth="1.5"
+        android:pathData="M13,34 L24,36 L35,34 L35,42 L24,44 L13,42 Z" />
+    <path
+        android:strokeColor="#2D2A26"
+        android:strokeWidth="1.5"
+        android:pathData="M24,36 L24,44" />
+</vector>

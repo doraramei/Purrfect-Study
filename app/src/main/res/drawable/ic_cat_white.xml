@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="48dp"
+    android:height="48dp"
+    android:viewportWidth="48"
+    android:viewportHeight="48">
+    <!-- Telinga -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:strokeColor="#1F1F1F"
+        android:strokeWidth="1.8"
+        android:pathData="M13,18 L15,7 L22,15 Z" />
+    <path
+        android:fillColor="#FFFFFF"
+        android:strokeColor="#1F1F1F"
+        android:strokeWidth="1.8"
+        android:pathData="M35,18 L33,7 L26,15 Z" />
+    <!-- Kepala -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:strokeColor="#1F1F1F"
+        android:strokeWidth="1.8"
+        android:pathData="M11,22 C11,14 17,11 24,11 C31,11 37,14 37,22 C37,29 31,32 24,32 C17,32 11,29 11,22 Z" />
+    <!-- Kacamata Fokus -->
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="#1F1F1F"
+        android:strokeWidth="1.6"
+        android:pathData="M15,21 A3.5,3.5 0 1,0 22,21 A3.5,3.5 0 1,0 15,21 Z" />
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="#1F1F1F"
+        android:strokeWidth="1.6"
+        android:pathData="M26,21 A3.5,3.5 0 1,0 33,21 A3.5,3.5 0 1,0 26,21 Z" />
+    <path
+        android:strokeColor="#1F1F1F"
+        android:strokeWidth="1.5"
+        android:pathData="M22,21 L26,21" />
+    <!-- Badan & Pensil -->
+    <path
+        android:fillColor="#F5F5F5"
+        android:strokeColor="#1F1F1F"
+        android:strokeWidth="1.6"
+        android:pathData="M16,32 L32,32 L34,43 L14,43 Z" />
+</vector>
